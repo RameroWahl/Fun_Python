@@ -5,7 +5,9 @@ import random
 OUCH_PHRASES = [
     "Oof!", "Yeowch!", "That smarts!", "Ow!", "Not again!", "Why must you hurt me?", 
     "Oh no, not the 7 key!", "I trusted you...", "Zounds!", "My digits!", "AHHHHHHHH!", 
-    "I didn't sign up for this!", "Ouchie!", "Stop the violence!", "Have mercy!"
+    "I didn't sign up for this!", "Ouchie!", "Stop the violence!", "Have mercy!", 
+    "THE PAIN!", "You're breaking me!", "Math is suffering!", "Every press is a betrayal!", 
+    "Is this how you treat all your calculators?!", "Oh, the humanity!"
 ]
 
 class Ouchulator(tk.Tk):
@@ -41,10 +43,15 @@ class Ouchulator(tk.Tk):
 
     def button_pressed(self, key):
         self.display.insert(tk.END, key)
-        self.show_ouch()
+        self.animate_ouch()
     
-    def show_ouch(self):
-        self.ouch_label.config(text=random.choice(OUCH_PHRASES))
+    def animate_ouch(self):
+        phrase = random.choice(OUCH_PHRASES)
+        self.ouch_label.config(text=phrase, fg="red")
+        self.ouch_label.place(relx=0.5, rely=0.2, anchor="center")
+        self.after(100, lambda: self.ouch_label.config(fg="darkred"))
+        self.after(200, lambda: self.ouch_label.config(fg="black"))
+        self.after(300, lambda: self.ouch_label.config(fg="red"))
         self.after(1000, lambda: self.ouch_label.config(text=""))  # Reset after 1 sec
 
 if __name__ == "__main__":
